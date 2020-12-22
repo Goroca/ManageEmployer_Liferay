@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.telefonica.model.Department">
+		<field name="idDept" type="int" />
+		<field name="nameDept" type="String" />
+	</model>
+	<model name="com.telefonica.model.Employer">
+		<field name="idEmployer" type="int" />
+		<field name="nameEmployer" type="String" />
+		<field name="idDept" type="int" />
+		<field name="photo" type="String" />
+	</model>
+</model-hints>

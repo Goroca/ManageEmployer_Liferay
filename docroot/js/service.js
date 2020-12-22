@@ -1,0 +1,1 @@
+Liferay.Service.register("Liferay.Service.manageEmployer", "com.telefonica.service", "manageEmployer-portlet");

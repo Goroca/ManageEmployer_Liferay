@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<service-builder package-path="com.telefonica">
+	<author>carlos</author>
+	<namespace>manageEmployer</namespace>
+    <entity name="Employer" local-service="true" remote-service="true">
+        <column primary="true" type="int" name="idEmployer" id-type="increment"></column>
+        <column type="String" name="nameEmployer"></column>
+        <column type="int" name="idDept"></column>
+        <column name="photo" type="String"></column>
+    </entity>
+    <entity name="Department" local-service="true">
+        <column primary="true" type="int" name="idDept" id-type="increment"></column>
+        <column type="String" name="nameDept"></column>
+    </entity>
+</service-builder>
