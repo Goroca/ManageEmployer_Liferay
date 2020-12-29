@@ -2,9 +2,7 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<bean id="com.telefonica.service.DepartmentLocalService" class="com.telefonica.service.impl.DepartmentLocalServiceImpl" />
-	<bean id="com.telefonica.service.DepartmentService" class="com.telefonica.service.impl.DepartmentServiceImpl" />
 	<bean id="com.telefonica.service.persistence.DepartmentPersistence" class="com.telefonica.service.persistence.DepartmentPersistenceImpl" parent="basePersistence" />
 	<bean id="com.telefonica.service.EmployerLocalService" class="com.telefonica.service.impl.EmployerLocalServiceImpl" />
-	<bean id="com.telefonica.service.EmployerService" class="com.telefonica.service.impl.EmployerServiceImpl" />
 	<bean id="com.telefonica.service.persistence.EmployerPersistence" class="com.telefonica.service.persistence.EmployerPersistenceImpl" parent="basePersistence" />
 </beans>

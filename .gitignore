@@ -1,0 +1,10 @@
+.classpath
+.project
+.settings/
+*.class
+*.jar
+docroot/WEB-INF/src/com/telefonica/service/
+docroot/WEB-INF/service/com/telefonica/model/
+docroot/WEB-INF/src/com/telefonica/service/
+docroot/WEB-INF/src/com/telefonica/model/
+docroot/WEB-INF/src/META-INF/portlet-spring.xml

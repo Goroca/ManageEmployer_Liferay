@@ -19,9 +19,7 @@ import com.liferay.portal.kernel.messaging.Message;
 
 import com.telefonica.service.ClpSerializer;
 import com.telefonica.service.DepartmentLocalServiceUtil;
-import com.telefonica.service.DepartmentServiceUtil;
 import com.telefonica.service.EmployerLocalServiceUtil;
-import com.telefonica.service.EmployerServiceUtil;
 
 /**
  * @author Brian Wing Shun Chan
@@ -40,10 +38,7 @@ public class ClpMessageListener extends BaseMessageListener {
 				servletContextName.equals(getServletContextName())) {
 			DepartmentLocalServiceUtil.clearService();
 
-			DepartmentServiceUtil.clearService();
 			EmployerLocalServiceUtil.clearService();
-
-			EmployerServiceUtil.clearService();
 		}
 	}
 }

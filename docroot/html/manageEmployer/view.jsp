@@ -16,6 +16,8 @@
 
 <%@ include file="init.jsp" %>
 
+<portlet:actionURL var="downloadURL" name="downloadFiles"></portlet:actionURL>
+
 This is the <b>Manage Employer</b> portlet VIEW.
 
 <% 
@@ -64,3 +66,5 @@ List<Department> departments = DepartmentLocalServiceUtil.getDepartments(0, Depa
 		</portlet:renderURL>
 		
 <a href="${addEmployerURL}">Add Employer</a>
+
+<a href="<%=downloadURL%>">Download Files</a>

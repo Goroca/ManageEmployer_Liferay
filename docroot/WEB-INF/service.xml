@@ -3,13 +3,13 @@
 <service-builder package-path="com.telefonica">
 	<author>carlos</author>
 	<namespace>manageEmployer</namespace>
-    <entity name="Employer" local-service="true" remote-service="true">
+    <entity name="Employer" local-service="true" remote-service="false">
         <column primary="true" type="int" name="idEmployer" id-type="increment"></column>
         <column type="String" name="nameEmployer"></column>
         <column type="int" name="idDept"></column>
         <column name="photo" type="String"></column>
     </entity>
-    <entity name="Department" local-service="true">
+    <entity name="Department" local-service="true" remote-service="false">
         <column primary="true" type="int" name="idDept" id-type="increment"></column>
         <column type="String" name="nameDept"></column>
     </entity>

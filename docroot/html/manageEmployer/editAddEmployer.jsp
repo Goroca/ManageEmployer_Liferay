@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.theme.ThemeDisplay"%>
 <%
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
@@ -27,10 +28,13 @@ if (idEmployer > 0){
 }
 %>
 
+<%
+String fullURL = themeDisplay.getPortalURL() + themeDisplay.getPathContext();
+%>
 
 
 <portlet:actionURL var="addEmployer" name="addEmployer"></portlet:actionURL>
-<aui:form action="<%=addEmployer%>" method="post">
+<aui:form action="<%=addEmployer%>" method="post" enctype="multipart/form-data" name="fm">
 <aui:model-context bean="<%= employer %>" model="<%= Employer.class %>" />
 
 	<aui:fieldset>
@@ -39,7 +43,7 @@ if (idEmployer > 0){
 		<aui:validator name="required"></aui:validator>
 		</aui:input>
 		
-		<aui:select id="Department" name="idDept" showEmptyOption="true">
+		<aui:select id="Department" name="idDept" showEmptyOption="true" label="Department">
 			<% for(Department department:departments){%>		
 				<aui:option
 					selected="<%=employer!= null && department.getIdDept() == employer.getIdDept() %>"
@@ -48,7 +52,10 @@ if (idEmployer > 0){
 				</aui:option>
 			<%} %>
 		</aui:select>
-			
+    	<aui:input type="file" id="photo" name="photo" label="photo">
+<%--     		<aui:validator name="required" /> --%>
+<%--     		<aui:validator name="acceptFiles">'jpg,jpeg,png' </aui:validator> --%>
+    	</aui:input>
 		<aui:input name="idEmployer" value="${employer.idEmployer}" type="hidden"/>
 
 	</aui:fieldset>
@@ -58,3 +65,5 @@ if (idEmployer > 0){
 
 	</aui:button-row>
 </aui:form>
+
+   <img src="<%=fullURL + employer.getPhoto()%>" alt="blank">
