@@ -10,4 +10,5 @@ docroot/WEB-INF/src/com/telefonica/model/
 docroot/WEB-INF/src/META-INF/portlet-spring.xml
 docroot/WEB-INF/classes/service.properties
 docroot/WEB-INF/src/service.properties
-
+**/META-INF/**
+docroot/WEB-INF/lib/
