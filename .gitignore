@@ -12,3 +12,6 @@ docroot/WEB-INF/classes/service.properties
 docroot/WEB-INF/src/service.properties
 **/META-INF/**
 docroot/WEB-INF/lib/
+docroot/WEB-INF/service/com/telefonica/service
+docroot/WEB-INF/sql/
+docroot/WEB-INF/tld/
