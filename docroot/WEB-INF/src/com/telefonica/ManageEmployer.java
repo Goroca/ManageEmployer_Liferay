@@ -10,7 +10,6 @@ import com.liferay.portal.kernel.repository.model.*;
 import com.liferay.portal.kernel.upload.*;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.*;
 import com.liferay.portal.theme.*;
@@ -18,7 +17,6 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.*;
 import com.liferay.portlet.documentlibrary.model.*;
 import com.liferay.portlet.documentlibrary.service.*;
-import com.liferay.portlet.documentlibrary.util.DLUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.liferay.util.portlet.PortletProps;
 import com.telefonica.model.*;
@@ -49,13 +47,23 @@ public class ManageEmployer extends MVCPortlet {
 
 	public void deleteEmployer(ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException,
-			PortletException, PortalException {
+			PortletException, PortalException, SystemException {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest
+				.getAttribute(WebKeys.THEME_DISPLAY);
+		long repositoryId = themeDisplay.getScopeGroupId();
 		int idEmployer = ParamUtil.getInteger(actionRequest, "idEmployer");
-
+		String title = "photo_" + idEmployer;
 		try {
+			Folder folder = DLAppLocalServiceUtil.getFolder(repositoryId,
+					PARENT_FOLDER_ID, ROOT_FOLDER_NAME);
+			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(
+					repositoryId, folder.getFolderId(), title);
+			DLAppLocalServiceUtil.deleteFileEntry(fileEntry.getFileEntryId());
 			EmployerLocalServiceUtil.deleteEmployer(idEmployer);
-		} catch (SystemException e) {
+		}
+		
+		catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -84,9 +92,9 @@ public class ManageEmployer extends MVCPortlet {
 		employer.setNameEmployer(nameEmployer);
 		employer.setIdDept(idDept);
 
-		String personalURL = uploadDocument(actionRequest, actionResponse, uploadRequest,
-				themeDisplay);
-		
+		String personalURL = uploadDocument(actionRequest, actionResponse,
+				uploadRequest, themeDisplay);
+
 		employer.setPhoto(personalURL);
 
 		try {
@@ -98,13 +106,12 @@ public class ManageEmployer extends MVCPortlet {
 		}
 
 	}
-	
+
 	public String uploadDocument(ActionRequest actionRequest,
 			ActionResponse actionResponse,
 			UploadPortletRequest uploadPortletRequest, ThemeDisplay themeDisplay)
 			throws IOException, PortletException, PortalException,
 			SystemException {
-
 
 		String fileName = uploadPortletRequest.getFileName("photo");
 		File file = uploadPortletRequest.getFile("photo");
@@ -124,18 +131,20 @@ public class ManageEmployer extends MVCPortlet {
 					file.getTotalSpace(), serviceContext);
 
 		} catch (DuplicateFileException exp) {
+			InputStream is = new FileInputStream(file);
 			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(
-					repositoryId, folder.getFolderId(), fileName);
+					repositoryId, folder.getFolderId(), title);
 			DLAppLocalServiceUtil.deleteFileEntry(fileEntry.getFileEntryId());
-			DLAppLocalServiceUtil.addFileEntry(themeDisplay.getDefaultUserId(),
-					repositoryId, folder.getFolderId(), fileName, mimeType,
-					fileName, fileName, fileName, file, serviceContext);
+			DLAppServiceUtil.addFileEntry(repositoryId, folder.getFolderId(),
+					fileName, mimeType, title, description, "", is,
+					file.getTotalSpace(), serviceContext);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
-		String personalURL = "/documents/" + themeDisplay.getScopeGroupId() + "/" + folder.getFolderId() +  "/" + title ;
+
+		String personalURL = "/documents/" + themeDisplay.getScopeGroupId()
+				+ "/" + folder.getFolderId() + "/" + title;
 		return personalURL;
 	}
 
@@ -157,19 +166,6 @@ public class ManageEmployer extends MVCPortlet {
 		}
 
 		return folder;
-	}
-
-	public boolean isFolderExist(ThemeDisplay themeDisplay) {
-		boolean folderExist = false;
-		try {
-			DLAppServiceUtil.getFolder(themeDisplay.getScopeGroupId(),
-					PARENT_FOLDER_ID, ROOT_FOLDER_NAME);
-			folderExist = true;
-			System.out.println("Folder is already Exist");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return folderExist;
 	}
 
 }

@@ -39,7 +39,7 @@ String fullURL = themeDisplay.getPortalURL() + themeDisplay.getPathContext();
 
 	<aui:fieldset>
 			
-		<aui:input name="nameEmployer" value="${employer.nameEmployer}" >
+		<aui:input name="nameEmployer" label="Name Employer" value="${employer.nameEmployer}" >
 		<aui:validator name="required"></aui:validator>
 		</aui:input>
 		
@@ -52,7 +52,7 @@ String fullURL = themeDisplay.getPortalURL() + themeDisplay.getPathContext();
 				</aui:option>
 			<%} %>
 		</aui:select>
-    	<aui:input type="file" id="photo" name="photo" label="photo">
+    	<aui:input type="file" id="photo" name="photo" label="photo" value="<%=fullURL + employer.getPhoto() %>">
 <%--     		<aui:validator name="required" /> --%>
 <%--     		<aui:validator name="acceptFiles">'jpg,jpeg,png' </aui:validator> --%>
     	</aui:input>
@@ -65,5 +65,7 @@ String fullURL = themeDisplay.getPortalURL() + themeDisplay.getPathContext();
 
 	</aui:button-row>
 </aui:form>
-
-   <img src="<%=fullURL + employer.getPhoto()%>" alt="blank">
+<%if (employer.getIdEmployer() > 0) {%>
+	<img src="<%=fullURL + employer.getPhoto()%>" alt="blank">   
+<%} %>
+   
